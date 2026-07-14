@@ -5,6 +5,8 @@ import { EyebrowBadge } from "@/components/ui/EyebrowBadge";
 import { HudFrame } from "@/components/ui/HudFrame";
 import { DIALOGUES, FRAME_COUNT, HERO_TEXT_FADE_END, framePath } from "@/lib/hero";
 
+const MIN_LOADING_MS = 10000;
+
 export function Hero() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -20,8 +22,11 @@ export function Hero() {
   const prevVisibleIdsRef = useRef("");
 
   const [loadProgress, setLoadProgress] = useState(0);
-  const [loaded, setLoaded] = useState(false);
+  const [framesLoaded, setFramesLoaded] = useState(false);
+  const [minTimeElapsed, setMinTimeElapsed] = useState(false);
   const [visibleCards, setVisibleCards] = useState<Set<string>>(new Set());
+
+  const loaded = framesLoaded && minTimeElapsed;
 
   useEffect(() => {
     let cancelled = false;
@@ -34,19 +39,17 @@ export function Hero() {
       img.onload = () => {
         if (cancelled) return;
         loadedCount++;
-        setLoadProgress(loadedCount / FRAME_COUNT);
         if (loadedCount === FRAME_COUNT) {
           loadedRef.current = true;
-          setLoaded(true);
+          setFramesLoaded(true);
         }
       };
       img.onerror = () => {
         if (cancelled) return;
         loadedCount++;
-        setLoadProgress(loadedCount / FRAME_COUNT);
         if (loadedCount === FRAME_COUNT) {
           loadedRef.current = true;
-          setLoaded(true);
+          setFramesLoaded(true);
         }
       };
       imgs.push(img);
@@ -56,6 +59,24 @@ export function Hero() {
     return () => {
       cancelled = true;
     };
+  }, []);
+
+  useEffect(() => {
+    const start = performance.now();
+    let rafId = 0;
+
+    const tick = (now: number) => {
+      const elapsed = now - start;
+      setLoadProgress(Math.min(1, elapsed / MIN_LOADING_MS));
+      if (elapsed >= MIN_LOADING_MS) {
+        setMinTimeElapsed(true);
+        return;
+      }
+      rafId = requestAnimationFrame(tick);
+    };
+    rafId = requestAnimationFrame(tick);
+
+    return () => cancelAnimationFrame(rafId);
   }, []);
 
   const drawFrame = useCallback((index: number) => {
