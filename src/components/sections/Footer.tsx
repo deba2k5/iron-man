@@ -4,7 +4,7 @@ export function Footer() {
   return (
     <footer
       id="footer"
-      className="relative overflow-hidden border-t border-white/5 bg-background px-6 py-14 md:px-10 md:py-16"
+      className="relative overflow-hidden border-t border-white/5 bg-background/85 px-6 py-14 md:px-10 md:py-16"
     >
       <div aria-hidden className="pointer-events-none absolute left-1/2 top-0 h-px w-full max-w-[1400px] -translate-x-1/2 bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
       <div aria-hidden className="pointer-events-none absolute -bottom-40 left-1/2 h-80 w-[520px] -translate-x-1/2 rounded-full bg-accent/[0.06] blur-[120px]" />

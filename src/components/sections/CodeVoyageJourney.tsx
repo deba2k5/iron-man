@@ -38,7 +38,7 @@ const faqs = [
 
 export function CodeVoyageJourney() {
   return (
-    <section id="about" className="relative overflow-hidden bg-background">
+    <section id="about" className="relative overflow-hidden bg-background/85">
       <div aria-hidden className="pointer-events-none absolute inset-0 opacity-40 [background-image:linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] [background-size:42px_42px]" />
       <div aria-hidden className="pointer-events-none absolute left-1/2 top-0 h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-accent/10 blur-[140px]" />
       <div className="relative mx-auto max-w-[1400px] px-6 py-24 md:px-10 md:py-32">

@@ -7,6 +7,7 @@ import { ArrowUpRight, List, X } from "@phosphor-icons/react";
 const LINKS = [
   ["#about", "About"],
   ["#timeline", "Timeline"],
+  ["#judges", "Judges"],
   ["#sponsors", "Sponsors"],
   ["#faq", "FAQ"],
 ];

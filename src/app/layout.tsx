@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
+import { SceneBackground } from "@/components/three/SceneBackground";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -67,7 +68,10 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="relative min-h-full bg-background text-foreground grain">
-        <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        <SmoothScrollProvider>
+          <SceneBackground />
+          <div className="relative z-10">{children}</div>
+        </SmoothScrollProvider>
       </body>
     </html>
   );
