@@ -210,6 +210,7 @@ export function Hero() {
       >
         <canvas
           ref={canvasRef}
+          aria-hidden="true"
           className="absolute inset-0 h-full w-full"
           style={{ willChange: "contents", transform: "translateZ(0)" }}
         />
