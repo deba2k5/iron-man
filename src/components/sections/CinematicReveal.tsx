@@ -223,29 +223,29 @@ export function CinematicReveal() {
         </div>
 
         <div className="pointer-events-none absolute right-6 top-28 z-10 flex max-w-[46ch] flex-col items-end gap-5 text-right md:right-12 md:top-32">
-          <EyebrowBadge>TITAN II // FINAL FRAME</EyebrowBadge>
+          <EyebrowBadge>CODEVOYAGE // FINAL BUILD</EyebrowBadge>
           <div className="relative self-stretch">
             <h2
               ref={h2InevitableRef}
               className="font-sans text-4xl font-semibold leading-[0.98] tracking-tighter text-foreground md:text-6xl lg:text-7xl"
               style={{ transition: "opacity 240ms ease-out" }}
             >
-              I am
+              Built to
               <br />
-              <span className="text-accent">Inevitable.</span>
+              <span className="text-accent">Compile.</span>
             </h2>
             <h2
               ref={h2IronManRef}
               className="absolute inset-0 font-sans text-4xl font-semibold leading-[0.98] tracking-tighter text-foreground md:text-6xl lg:text-7xl"
               style={{ opacity: 0, transition: "opacity 240ms ease-out" }}
             >
-              And I am
+              Ready to
               <br />
-              <span className="text-accent">Iron Man.</span>
+              <span className="text-accent">Deploy.</span>
             </h2>
           </div>
           <p className="max-w-[42ch] font-sans text-sm leading-relaxed text-zinc-400 md:text-base">
-            Endgame &mdash; the snap heard across the universe. J.A.R.V.I.S. held the last frame so we could rebuild from it.
+            The final build is ready. Review the sequence, then deploy what comes next.
           </p>
         </div>
 

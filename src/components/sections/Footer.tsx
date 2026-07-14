@@ -14,22 +14,22 @@ export function Footer() {
                 aria-hidden
                 className="inline-block h-2 w-2 rounded-full bg-accent shadow-[0_0_12px_rgba(212,162,47,0.9)]"
               />
-              Stark / Industries
+              IEM / UEM
             </div>
             <p className="max-w-[38ch] font-sans text-sm leading-relaxed text-zinc-400">
-              &copy; Stark Industries &mdash; 10880 Malibu Point, 90265.
-              Registered trademark of the Office of Howard &amp; Anthony E. Stark.
+              &copy; IEM / UEM &mdash; CODEVOYAGE development collective.
+              Built for the next generation of digital experiences.
             </p>
           </div>
 
           <nav className="grid grid-cols-2 gap-x-10 gap-y-3 md:grid-cols-3">
             {[
-              ["Mark I", "Cave, Afghanistan"],
-              ["Mark III", "Monaco Circuit"],
-              ["Mark VII", "Stark Tower"],
-              ["Mark XLIV", "Hulkbuster"],
-              ["Mark L", "Titan"],
-              ["Mark LXXXV", "Endgame"],
+              ["Launch", "Protocol 001"],
+              ["Build", "Development loop"],
+              ["Compile", "System ready"],
+              ["Test", "Quality assured"],
+              ["Deploy", "Release channel"],
+              ["Archive", "Version history"],
             ].map(([name, note]) => (
               <a
                 key={name}
@@ -53,8 +53,8 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col gap-2 border-t border-white/5 pt-6 font-mono text-[10px] uppercase tracking-[0.28em] text-zinc-500 md:flex-row md:items-center md:justify-between">
-          <span>Build 2026.04.21 &nbsp;&middot;&nbsp; Mark LXXXV &nbsp;&middot;&nbsp; J.A.R.V.I.S. Online</span>
-          <span>Proof of concept &mdash; fan art, no commercial use</span>
+          <span>Build 2026.04.21 &nbsp;&middot;&nbsp; CODEVOYAGE &nbsp;&middot;&nbsp; Systems Online</span>
+          <span>Built by IEM / UEM</span>
         </div>
       </div>
     </footer>
