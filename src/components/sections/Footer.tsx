@@ -4,9 +4,11 @@ export function Footer() {
   return (
     <footer
       id="footer"
-      className="border-t border-white/5 bg-background px-6 py-14 md:px-10 md:py-16"
+      className="relative overflow-hidden border-t border-white/5 bg-background px-6 py-14 md:px-10 md:py-16"
     >
-      <div className="mx-auto flex max-w-[1400px] flex-col gap-10">
+      <div aria-hidden className="pointer-events-none absolute left-1/2 top-0 h-px w-full max-w-[1400px] -translate-x-1/2 bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
+      <div aria-hidden className="pointer-events-none absolute -bottom-40 left-1/2 h-80 w-[520px] -translate-x-1/2 rounded-full bg-accent/[0.06] blur-[120px]" />
+      <div className="relative mx-auto flex max-w-[1400px] flex-col gap-10">
         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-start">
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2.5 font-mono text-[11px] font-semibold uppercase tracking-[0.32em] text-foreground">

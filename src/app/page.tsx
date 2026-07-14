@@ -1,7 +1,7 @@
 import { Navbar } from "@/components/ui/Navbar";
 import { Hero } from "@/components/sections/Hero";
 import { CinematicReveal } from "@/components/sections/CinematicReveal";
-import { SystemsNominal } from "@/components/sections/SystemsNominal";
+import { CodeVoyageJourney } from "@/components/sections/CodeVoyageJourney";
 import { Footer } from "@/components/sections/Footer";
 
 export default function Home() {
@@ -10,8 +10,8 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <CodeVoyageJourney />
         <CinematicReveal />
-        <SystemsNominal />
       </main>
       <Footer />
     </>
