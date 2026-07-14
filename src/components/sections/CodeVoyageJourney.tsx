@@ -17,6 +17,22 @@ const stats = [
   ["50+", "Colleges", "Campuses joining the mission", "51%"],
 ];
 
+function buildTimelineCurve(count: number, amplitude = 7) {
+  if (count < 2) return "";
+  const step = 100 / (count - 1);
+  let d = "M 50 0";
+  for (let i = 1; i < count; i++) {
+    const y0 = (i - 1) * step;
+    const y1 = i * step;
+    const sign = i % 2 === 0 ? 1 : -1;
+    const cx = 50 + sign * amplitude;
+    const cy1 = y0 + (y1 - y0) * 0.33;
+    const cy2 = y0 + (y1 - y0) * 0.67;
+    d += ` C ${cx} ${cy1}, ${cx} ${cy2}, 50 ${y1}`;
+  }
+  return d;
+}
+
 const journey = [
   ["01", "Registrations open", "30 JULY 2026", "Your signal is live. Assemble your squad and secure your place in the mission.", UserPlus],
   ["02", "Problem statements release", "MISSION BRIEF", "The challenge vault opens with the briefs that will define your build.", FileText],
@@ -27,6 +43,8 @@ const journey = [
   ["07", "Hackathon ends", "FINAL SUBMISSION", "Lock your final build, submit your project, and prepare the showcase.", FlagCheckered],
   ["08", "Winners assemble", "FINAL REVEAL", "The strongest missions are recognized as the CodeVoyage winners.", Trophy],
 ] as const;
+
+const TIMELINE_CURVE_PATH = buildTimelineCurve(journey.length);
 
 const sponsors = ["TITLE PARTNER", "INNOVATION PARTNER", "COMMUNITY ALLY", "CLOUD PARTNER", "MEDIA PARTNER"];
 const faqs = [
@@ -54,25 +72,31 @@ export function CodeVoyageJourney() {
           </div>
         </div>
 
-        <div className="mt-16 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-          {stats.map(([value, label, detail], index) => (
-            <article key={label} className="group relative min-h-64 overflow-hidden rounded-2xl border border-white/10 bg-zinc-950/70 p-6 shadow-[16px_20px_0_rgba(0,0,0,0.35)] transition-all duration-300 hover:-translate-y-2 hover:rotate-[1deg] hover:border-accent/40 hover:shadow-[16px_24px_0_rgba(212,162,47,0.12)]">
-              <div aria-hidden className="absolute right-5 top-5 h-16 w-16 rotate-45 border border-accent/30 bg-accent/5 transition-transform duration-500 group-hover:rotate-[135deg]" />
-              <div aria-hidden className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: "radial-gradient(280px circle at 20% 0%, rgba(212,162,47,0.12), transparent 60%)" }} />
-              <div className="relative flex h-full flex-col justify-between">
-                <span className="font-mono text-[10px] tracking-[0.28em] text-zinc-500">DATA // 0{index + 1}</span>
-                <div><p className="font-sans text-5xl font-semibold tracking-tighter text-foreground">{value}</p><h3 className="mt-2 font-mono text-[11px] uppercase tracking-[0.16em] text-accent">{label}</h3><p className="mt-4 text-sm leading-relaxed text-zinc-500">{detail}</p></div>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        <div className="mt-28 grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+        <div className="mt-16 grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
           <div><EyebrowBadge className="!text-white">LIVE // MISSION DATA</EyebrowBadge><h2 className="mt-6 max-w-[9ch] font-sans text-4xl font-semibold leading-[0.94] tracking-tighter text-foreground md:text-6xl">Built by the <span className="text-accent">numbers.</span></h2><p className="mt-5 max-w-[36ch] text-base leading-relaxed text-zinc-400">A growing network of teams, campuses, and collaborators powering the next CodeVoyage.</p></div>
-          <div className="grid min-h-[360px] grid-cols-4 gap-3 rounded-2xl border border-white/10 bg-zinc-950/70 p-5 shadow-[0_30px_80px_-45px_rgba(212,162,47,0.65)] md:gap-6 md:p-8">
-            {stats.map(([value, label, , height], index) => (
-              <div key={label} className="flex min-w-0 flex-col justify-end"><div className="mb-3 font-mono text-[10px] text-zinc-500">0{index + 1}</div><div className="relative flex h-56 items-end border-x border-t border-white/10 bg-[linear-gradient(rgba(255,255,255,0.07)_1px,transparent_1px)] [background-size:100%_25%]"><div className="group relative w-full px-1 md:px-2" style={{ height }}><div className="absolute inset-x-1 bottom-0 h-full bg-gradient-to-t from-accent/60 via-accent to-yellow-100 shadow-[0_0_30px_rgba(212,162,47,0.4)] transition-transform group-hover:scale-y-110 md:inset-x-2" /><div className="absolute -top-2 left-1/2 h-4 w-4 -translate-x-1/2 rotate-45 border border-white/70 bg-accent" /></div></div><p className="mt-4 font-sans text-xl font-semibold tracking-tight text-foreground">{value}</p><p className="mt-1 break-words font-mono text-[9px] uppercase leading-relaxed tracking-[0.12em] text-zinc-500">{label}</p></div>
-            ))}
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-950/70 p-6 shadow-[0_30px_80px_-45px_rgba(212,162,47,0.65)] md:p-9">
+            <div aria-hidden className="pointer-events-none absolute inset-0 opacity-60 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:100%_20%]" />
+            <div aria-hidden className="pointer-events-none absolute -right-16 -top-24 h-64 w-64 rounded-full bg-accent/10 blur-[100px]" />
+            <div className="relative flex flex-col gap-8">
+              {stats.map(([value, label, detail, width], index) => (
+                <div key={label} className="group">
+                  <div className="flex items-baseline justify-between gap-4">
+                    <div className="flex items-baseline gap-3">
+                      <span className="font-mono text-[10px] text-zinc-600">0{index + 1}</span>
+                      <h3 className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">{label}</h3>
+                    </div>
+                    <span className="font-sans text-3xl font-semibold tracking-tighter text-foreground">{value}</span>
+                  </div>
+                  <div className="mt-3 h-2.5 w-full overflow-hidden rounded-full bg-white/5">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-accent/70 via-accent to-yellow-100 shadow-[0_0_18px_rgba(212,162,47,0.45)] transition-[filter] duration-300 group-hover:brightness-110"
+                      style={{ width }}
+                    />
+                  </div>
+                  <p className="mt-2 text-xs leading-relaxed text-zinc-500">{detail}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -84,10 +108,35 @@ export function CodeVoyageJourney() {
           </div>
 
           <div className="relative mx-auto mt-24 max-w-5xl">
-            {/* Center spine */}
-            <div aria-hidden className="absolute bottom-0 left-6 top-0 w-px bg-gradient-to-b from-accent via-accent/50 to-transparent md:left-1/2 md:-translate-x-1/2">
+            {/* Mobile straight spine */}
+            <div aria-hidden className="absolute bottom-0 left-6 top-0 w-px -translate-x-1/2 bg-gradient-to-b from-accent via-accent/50 to-transparent md:hidden">
               <div className="absolute inset-0 w-px shadow-[0_0_16px_2px_rgba(212,162,47,0.55)]" />
             </div>
+
+            {/* Desktop curved spine */}
+            <svg
+              aria-hidden
+              className="absolute inset-0 hidden h-full w-full md:block"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              style={{ filter: "drop-shadow(0 0 8px rgba(212,162,47,0.45))" }}
+            >
+              <defs>
+                <linearGradient id="timelineCurveGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stopColor="#d4a22f" stopOpacity="1" />
+                  <stop offset="0.6" stopColor="#d4a22f" stopOpacity="0.55" />
+                  <stop offset="1" stopColor="#d4a22f" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+              <path
+                d={TIMELINE_CURVE_PATH}
+                fill="none"
+                stroke="url(#timelineCurveGradient)"
+                strokeWidth="1.5"
+                vectorEffect="non-scaling-stroke"
+              />
+            </svg>
+
             <div aria-hidden className="absolute -top-3 left-6 h-6 w-6 -translate-x-1/2 rounded-full border border-accent bg-background shadow-[0_0_20px_rgba(212,162,47,0.55)] md:left-1/2" />
             <div aria-hidden className="absolute bottom-0 left-6 h-6 w-6 -translate-x-1/2 rotate-45 border-b border-r border-accent bg-background md:left-1/2" />
 
